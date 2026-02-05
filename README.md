@@ -16,8 +16,6 @@ git clone https://github.com/Isharohira/Lambda-API-Gateway-and-DynamoDB-AWS-Proj
 cd Lambda-API-Gateway-and-DynamoDB-AWS-Project
 
 
-```
-
 ## 🔧 Architecture
 
 
