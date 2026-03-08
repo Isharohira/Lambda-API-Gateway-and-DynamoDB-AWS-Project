@@ -14,7 +14,8 @@ def contact():
     email = request.form.get("email")
     message = request.form.get("message")
 
-    client = boto3.client('dynamodb')
+    # Add region_name here
+    client = boto3.client('dynamodb', region_name='ap-south-1')
 
     client.put_item(
         TableName='ishatable',
