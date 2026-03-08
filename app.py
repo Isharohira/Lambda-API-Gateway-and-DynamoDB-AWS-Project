@@ -3,27 +3,40 @@ import boto3
 
 app = Flask(__name__)
 
+# Home route
 @app.route("/", methods=["GET"])
 def home():
     return send_file("contactus.html")
 
-@app.route("/contact", methods=["POST"])
+
+# Contact route
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
+
+    # If someone directly opens /contact
+    if request.method == "GET":
+        return send_file("contactus.html")
+
+    # Form data
     fname = request.form.get("fname")
     lname = request.form.get("lname")
     email = request.form.get("email")
     message = request.form.get("message")
 
-    # Add region_name here
-    client = boto3.client('dynamodb', region_name='ap-south-1')
+    # Connect to DynamoDB
+    client = boto3.client(
+        "dynamodb",
+        region_name="ap-south-1"
+    )
 
+    # Insert data into table
     client.put_item(
-        TableName='ishatable',
+        TableName="ishatable",
         Item={
-            'email': {'S': email},
-            'fname': {'S': fname},
-            'lname': {'S': lname},
-            'message': {'S': message}
+            "email": {"S": email},
+            "fname": {"S": fname},
+            "lname": {"S": lname},
+            "message": {"S": message}
         }
     )
 
